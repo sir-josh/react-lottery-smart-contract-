@@ -2,8 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import web3 from './web3';
 
-function App() {
-  web3.eth.getAccounts().then(console.log);
+function  App() {
+
+  // const getAddress = async () => {
+  //   console.log(await web3.eth.getAccounts());; 
+  // }
+
+  // getAddress();
 
   return (
     <div className="App">

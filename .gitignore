@@ -24,3 +24,7 @@ yarn-error.log*
 
 #page files
 .package-lock.json
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/extensions.json
