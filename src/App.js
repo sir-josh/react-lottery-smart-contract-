@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import './App.css';
 import lottery from './lotteryContract';
 import web3 from './web3';
@@ -40,14 +40,24 @@ function App() {
     setMessage('You have successfully entered the pool!!!');
   }
 
-    // const getAddress = async () => {
+  const pickWinner = async () => {
+    const userAccount = await web3.eth.getAccounts();
+
+    setMessage('Waiting to pick a winner...');
+
+    await lottery.methods.pickWinner().send({ from: userAccount[0] });
+
+    setMessage('A winner have been picked!!!!');
+  }
+
+  // const getAddress = async () => {
   //   console.log(await web3.eth.getAccounts());; 
   // }
 
   // getAddress();
 
   return (
-    <>
+    <Fragment>
       <h2 className="Lottery-header">Lottery Contract </h2>
       <div className="lottery-body">
         <h4>This contract is managed by { manager }</h4>
@@ -59,16 +69,21 @@ function App() {
          <form onSubmit={onSubmit}>
            <h4>You want to try your luck?</h4>
            <div>
-             <label>Amount of ether to enter</label>
+             <label>Amount of ether to enter {" "} </label>
              <input value={value} name="value" onChange={event => setValue(event.target.value)}/>
            </div>
            <button>Enter</button>
          </form>
 
-         <hr />
-         {msgNotification}
+         <br/><hr />
+        <div>
+           <h3>Ready to pick a winner?</h3> 
+           <button onClick={pickWinner}>Pick A Winner</button>
+        </div>
+         <br/><br/><hr />
+         <h4>{msgNotification}</h4>
       </div>
-    </>
+    </Fragment>
   );
 }
 
